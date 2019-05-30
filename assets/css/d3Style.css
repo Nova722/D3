@@ -32,9 +32,12 @@
 }
 
 .stateCircle {
-  fill: #d389a2;
   stroke: #e3e3e3;
   
+}
+
+.stateCircle:hover{
+  fill: black
 }
 
 
