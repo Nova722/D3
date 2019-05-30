@@ -32,10 +32,11 @@
 }
 
 .stateCircle {
-  fill: #89bdd3;
+  fill: #d389a2;
   stroke: #e3e3e3;
   
 }
+
 
 .chart {
   display: block;
@@ -50,7 +51,7 @@
   color: #fff;
   text-align: center;
   text-transform: capitalize;
-  background: rgba(0, 0, 0, 0.8);
+  background:grey;
   border-radius: 4px;
 }
 
