@@ -23,7 +23,7 @@ var chartGroup = svg.append('g')
 	.attr('transform',`translate(${margin.l},${margin.t})`)
 
 //set the x & y defaults for the initial page
-var userChoiceX = 'poverty',
+var userChoiceX = 'age',
   userChoiceY = 'healthcare';
   
 // load the data
@@ -61,6 +61,7 @@ d3.csv("./assets/data/data.csv").then( data =>{
 		.attr('cx', d => xScale(d[userChoiceX]))
 		.attr('cy', d => yScale(d[userChoiceY]))
 		.attr('r' , 17)
+		.attr('fill', '#89a9d3')
 	
 	var stateText = chartGroup.append('g').selectAll('text')
 		.data(data)
@@ -79,14 +80,14 @@ d3.csv("./assets/data/data.csv").then( data =>{
 	    .attr('x', 0)
 	    .attr('y', 20)
 	    .attr('value', 'poverty')
-	    .classed('aText active', true)
+	    .classed('aText inactive', true)
 	    .text('In Poverty (%)');
 
 	var ageL = xLabels.append('text')
 	    .attr('x', 0)
 	    .attr('y', 40)
 	    .attr('value', 'age')
-	    .classed('aText inactive', true)
+	    .classed('aText active', true)
 	    .text('Age (Median)');
 
     var incomeL = xLabels.append('text')
@@ -135,22 +136,24 @@ d3.csv("./assets/data/data.csv").then( data =>{
 					.call(d3.axisBottom(xScale));
 
 		        stateCircles.transition()
-			        .duration(1000)
+			        .duration(1100)
 			        .ease(d3.easeBack)
 			        .on('start',function(){ //initiate graphic movement on state bubbles for label change
 			        	d3.select(this)
 			        		.attr("opacity", 0.50)
-			        		.attr('r',20);
+							.attr('r',20)
+							.attr('fill', 'grey');
 			        })
 			        .on('end',function(){ //bubbles end up smaller once the change has happened
 			        	d3.select(this)
 			        		.attr("opacity", 1)
-			        		.attr('r',17)
+							.attr('r',17)
+							.attr('fill', '#89a9d3');
 			        })
 			        .attr('cx', d => xScale(d[userChoiceX]));
 
 			    d3.selectAll('.stateText').transition()
-			    	.duration(1000)
+			    	.duration(1100)
 			    	.ease(d3.easeBack)
 			    	.attr('x', d => xScale(d[userChoiceX]));
 
@@ -202,7 +205,7 @@ d3.csv("./assets/data/data.csv").then( data =>{
 		        yScale = fetchYScaleForAxis(data, userChoiceY);
 
 		        yAxis.transition()
-				    .duration(1000)
+				    .duration(1100)
 				    .ease(d3.easeBack)
 					.call(d3.axisLeft(yScale));
 
@@ -211,18 +214,20 @@ d3.csv("./assets/data/data.csv").then( data =>{
 			        .ease(d3.easeBack)
 			        .on('start',function(){
 			        	d3.select(this)
-			        		.attr("opacity", 0.50)
-			        		.attr('r',20);
+							.attr("opacity", 0.50)
+							.attr('r',20)
+							.attr('fill', 'grey');
 			        })
 			        .on('end',function(){
 			        	d3.select(this)
 			        		.attr("opacity", 1)
-			        		.attr('r',17)
+							.attr('r',17)
+							.attr('fill', '#89a9d3');
 			        })
 			        .attr('cy', d => yScale(d[userChoiceY]));
 
 			    d3.selectAll('.stateText').transition()
-			    	.duration(1000)
+			    	.duration(1100)
 			    	.ease(d3.easeBack)
 			    	.attr('y', d => yScale(d[userChoiceY]));
 
@@ -232,7 +237,7 @@ d3.csv("./assets/data/data.csv").then( data =>{
 		        if (userChoiceY === 'healthcare') { //same as above, if certain labels are chosen activate the correct labels on y axis
 				    HealthL
 			            .classed('active', true)
-			            .classed('inactive', false);
+						.classed('inactive', false);
 			        smokesL
 			            .classed('active', false)
 			            .classed('inactive', true);
@@ -296,7 +301,7 @@ function updateToolTip(userChoiceY,userChoiceX,stateCircles,stateText) { //updat
 	            return (`${d.state}<br>${userChoiceY}:${d[userChoiceY]}% 
 	            		<br>${userChoiceX}:${d[userChoiceX]}%`)
         	else if (userChoiceX === 'income')
-	            return (`${d.state}<br>${userChoiceY}:${d[userChoiceY]}% 
+	            return (`${d.state}<br> ${userChoiceY}:${d[userChoiceY]}% 
 	            		<br>${userChoiceX}:$${d[userChoiceX]}`)
 	        else
 	        	return (`${d.state}<br>${userChoiceY}:${d[userChoiceY]}% 
@@ -308,6 +313,7 @@ function updateToolTip(userChoiceY,userChoiceX,stateCircles,stateText) { //updat
 
 	d3.selectAll('.stateText').call(toolTip);
 	d3.selectAll('.stateText').on('mouseover', toolTip.show).on('mouseout', toolTip.hide);
+
 
 	return stateCircles;
 	return stateText;
