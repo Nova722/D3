@@ -1,6 +1,6 @@
 //create svg attributes
-var svgWidth =825,
-	svgHeight =700;
+var svgWidth =925,
+	svgHeight =680;
 
 var margin = {
 	t:50,
@@ -60,7 +60,7 @@ d3.csv("./assets/data/data.csv").then( data =>{
 		.classed('stateCircle',true) //classed as in the d3 css sheet
 		.attr('cx', d => xScale(d[userChoiceX]))
 		.attr('cy', d => yScale(d[userChoiceY]))
-		.attr('r' , 13)
+		.attr('r' , 17)
 	
 	var stateText = chartGroup.append('g').selectAll('text')
 		.data(data)
@@ -140,12 +140,12 @@ d3.csv("./assets/data/data.csv").then( data =>{
 			        .on('start',function(){ //initiate graphic movement on state bubbles for label change
 			        	d3.select(this)
 			        		.attr("opacity", 0.50)
-			        		.attr('r',15);
+			        		.attr('r',20);
 			        })
 			        .on('end',function(){ //bubbles end up smaller once the change has happened
 			        	d3.select(this)
 			        		.attr("opacity", 1)
-			        		.attr('r',10)
+			        		.attr('r',17)
 			        })
 			        .attr('cx', d => xScale(d[userChoiceX]));
 
@@ -212,12 +212,12 @@ d3.csv("./assets/data/data.csv").then( data =>{
 			        .on('start',function(){
 			        	d3.select(this)
 			        		.attr("opacity", 0.50)
-			        		.attr('r',15);
+			        		.attr('r',20);
 			        })
 			        .on('end',function(){
 			        	d3.select(this)
 			        		.attr("opacity", 1)
-			        		.attr('r',10)
+			        		.attr('r',17)
 			        })
 			        .attr('cy', d => yScale(d[userChoiceY]));
 
